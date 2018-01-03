@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>七牛云</title>
+        <link href="index.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1><a target="_blank" href="https://developer.qiniu.com/kodo/sdk/1283/javascript">七牛</a></h1>
+
+        <div id="container">
+            <button id="upload">选择文件</button>
+        </div>
+        <div style="display:none" id="success">
+            <h1>队列全部文件处理完毕</h1>
+        </div>
+
+        <input type="hidden" id="domain" value="bigsea">
+        <input type="hidden" id="uptoken_url" value="">
+
+        <!-- js -->
+        <script src="ku/jquery.min.js"></script>
+        <script src="ku/bigsea.js"></script>
+        <script src="ku/qiniu.min.js"></script>
+        <script src="ku/ui.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+body {
+    text-align: center;
+    background: #F7F7F7;
+}
+#upload {
+    font-size: 1.1rem;
+    border-radius: .25rem;
+    border: 1px solid #037DD8;
+    background-color: #037DD8;
+    color: white;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    outline: none;
+}
+#upload:hover {
+    box-shadow: 0 2px 4px #999;
+}
+#upload:active {
+    background-color: #08c;
+}
