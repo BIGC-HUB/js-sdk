@@ -15,8 +15,17 @@
             <h1>队列全部文件处理完毕</h1>
         </div>
 
-        <input type="hidden" id="domain" value="bigsea">
-        <input type="hidden" id="uptoken_url" value="">
+        <table style="display:none">
+            <thead>
+              <tr>
+                <th>Filename</th>
+                <th>Size</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody id="fsUploadProgress">
+            </tbody>
+        </table>
 
         <!-- js -->
         <script src="ku/jquery.min.js"></script>
