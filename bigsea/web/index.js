@@ -8,6 +8,7 @@ const config = {
 
 
 const main = function() {
+    // 初始化
     const uploader = Qiniu.uploader({
         disable_statistics_report: false,
         runtimes: 'html5,flash,html4',
@@ -28,56 +29,60 @@ const main = function() {
         log_level: 0,
         init: {
             BeforeChunkUpload(up, file) {
-                console.log("before chunk upload:", file.name)
+                log('BeforeChunkUpload', file.name)
             },
             FilesAdded(up, files) {
-                $('table').show()
-                $('#success').hide()
+                // $('table').show()
+                // $('#success').hide()
                 plupload.each(files, function(file) {
-                    let progress = new FileProgress(file,
-                        'fsUploadProgress')
-                    progress.setStatus("等待...")
-                    progress.bindUploadCancel(up)
+                    log('FilesAdded', file)
+                    // let progress = new FileProgress(file,
+                    //     'fsUploadProgress')
+                    // progress.setStatus("等待...")
+                    // progress.bindUploadCancel(up)
                 })
             },
             BeforeUpload(up, file) {
-                console.log("this is a beforeupload function from init")
-                let progress = new FileProgress(file, 'fsUploadProgress')
-                let chunk_size = plupload.parseSize(this.getOption(
-                    'chunk_size'))
+                let size = this.getOption('chunk_size')
+                let chunk_size = plupload.parseSize(size)
                 if (up.runtime === 'html5' && chunk_size) {
-                    progress.setChunkProgess(chunk_size)
+                    log(chunk_size)
+                    // progress.setChunkProgess(chunk_size)
                 }
             },
             UploadProgress(up, file) {
-                let progress = new FileProgress(file, 'fsUploadProgress')
-                let chunk_size = plupload.parseSize(this.getOption('chunk_size'))
-                progress.setProgress(file.percent + "%", file.speed,
-                    chunk_size)
+                // 分块上传
+                log('UploadProgress', file.percent + "%", file.speed)
+                // let progress = new FileProgress(file, 'fsUploadProgress')
+                // let chunk_size = plupload.parseSize(this.getOption('chunk_size'))
+                // progress.setProgress(file.percent + "%", file.speed, chunk_size)
             },
             UploadComplete() {
                 $('#success').show()
             },
             FileUploaded(up, file, info) {
-                let progress = new FileProgress(file, 'fsUploadProgress')
-                console.log("response:", info.response)
-                progress.setComplete(up, info.response)
+                log('FileUploaded', file, info)
+                // let progress = new FileProgress(file, 'fsUploadProgress')
+                // console.log("response:", info.response)
+                // progress.setComplete(up, info.response)
             },
             Error(up, err, errTip) {
-                $('table').show()
-                let progress = new FileProgress(err.file, 'fsUploadProgress')
-                progress.setError()
-                progress.setStatus(errTip)
+                log('Error 出错了', err, errTip)
+                // let progress = new FileProgress(err.file, 'fsUploadProgress')
+                // progress.setError()
+                // progress.setStatus(errTip)
             }
         }
     })
-    //uploader.init()
+    //
     uploader.bind('BeforeUpload', function() {
         console.log("hello man, 准备上传！")
     })
     uploader.bind('FileUploaded', function() {
         console.log('hello man, 上传完成！')
     })
+
+    // 拖动上传
     $('#container').on('dragenter', function(e) {
         e.preventDefault()
         $('#container').addClass('draging')
